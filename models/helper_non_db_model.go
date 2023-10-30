@@ -28,6 +28,7 @@ type UserResponse struct {
 	UserMetadata UserMetadata `json:"userMetadata,omitempty"`
 	CreatedAt    time.Time    `json:"created_at"`
 	UpdatedAt    time.Time    `json:"updated_at"`
+	Gists        []Gist       `json:"gists,omitempty"`
 }
 
 type ForgotPasswordInput struct {
@@ -38,3 +39,35 @@ type ResetPasswordInput struct {
 	Password        string `json:"password" binding:"required,min=8"`
 	PasswordConfirm string `json:"passwordConfirm" binding:"required,min=8"`
 }
+
+type PublicUserProfileResponse struct {
+	Username     string       `json:"username,omitempty"`
+	FirstName    string       `json:"firstName,omitempty"`
+	LastName     string       `json:"lastName,omitempty"`
+	UserMetadata UserMetadata `json:"userMetadata,omitempty"`
+}
+
+type CreateGistRequest struct {
+	Private bool   `json:"private"`
+	Content string `json:"content" binding:"required"`
+	Name    string `json:"name" binding:"required"`
+	Title   string `json:"title" binding:"required"`
+}
+
+type UpdateUserDetailsRequest struct {
+	StatusIcon     string `json:"statusIcon"`
+	ProfilePicture string `json:"profilePicture"`
+	Location       string `json:"location"`
+	Website        string `json:"website"`
+	Twitter        string `json:"twitter"`
+	Tagline        string `json:"tagline"`
+}
+
+type UpdateGistRequest struct {
+	Private bool   `json:"private"`
+	Content string `json:"content"`
+	Name    string `json:"name"`
+	Title   string `json:"title"`
+	GistId  string `json:"gistId" binding:"required"`
+}
+

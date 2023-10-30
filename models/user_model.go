@@ -36,31 +36,49 @@ type UserMetadata struct {
 	Website        string   `gorm:"type:varchar(255)"`
 	Twitter        string   `gorm:"type:varchar(255)"`
 	Tagline        string   `gorm:"type:varchar(255)"`
+	StarredGists []string `gorm:"type:varchar(255)[]"`
 	Stars          []string `gorm:"type:varchar(255)[]"`
 	Followers      []string `gorm:"type:varchar(255)[]"`
 	Following      []string `gorm:"type:varchar(255)[]"`
 }
 
 type Gist struct {
-	UserName  string    `gorm:"type:varchar(255)"` // Foreign Key
-	Stars     []string  `gorm:"type:varchar(255)[]"`
-	Forks     []string  `gorm:"type:varchar(255)[]"`
-	ID        uuid.UUID `gorm:"type:uuid;default:uuid_generate_v4();primary_key"`
-	Comments  []Comment `gorm:"foreignKey:GistID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL"`
-	Private   bool      `gorm:"not null"`
-	Content   []byte    `gorm:"type:text;size:10485760;not null"`
-	Name      string    `gorm:"type:varchar(255);not null"`
+	Username string `gorm:"type:varchar(255)"` // Foreign Key
+
+	// Username of people who have starred the gist
+	Stars []string `gorm:"type:varchar(255)[]"`
+
+	// Username of people who have forked the gist
+	Forks []string `gorm:"type:varchar(255)[]"`
+
+	ID          uuid.UUID   `gorm:"type:uuid;default:uuid_generate_v4();primary_key"`
+	Comments    []Comment   `gorm:"foreignKey:GistID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL"`
+	Private     bool        `gorm:"not null"`
+	GistContent GistContent `gorm:"foreignKey:ID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL"`
+
+	// We are hard-coding in logic to make sure name is unique across all gists of a user
+	Name string `gorm:"type:varchar(255);not null"`
+
 	Title     string    `gorm:"type:varchar(255);not null"`
-	Link      string    `gorm:"type:varchar(255);not null"`
 	CreatedAt time.Time `gorm:"not null"`
 	UpdatedAt time.Time `gorm:"not null"`
+}
+
+type GistContent struct {
+	ID      uuid.UUID `gorm:"type:uuid;default:uuid_generate_v4();primary_key"` // Foreign Key
+	Content string    `gorm:"type:text;size:10485760;not null"`
 }
 
 type Comment struct {
 	GistID    uuid.UUID `gorm:"type:uuid; not null"` // Foreign Key
 	Username  string    `gorm:"type:varchar(255); not null"`
-	Content   []byte    `gorm:"type:text;size:10485760;not null"`
+	Content   string    `gorm:"type:text;size:10485760;not null"`
 	CommentID uuid.UUID `gorm:"type:uuid;default:uuid_generate_v4();primary_key"`
 	CreatedAt time.Time `gorm:"not null"`
 	UpdatedAt time.Time `gorm:"not null"`
+}
+
+type CommentOnGistRequest struct {
+	Content string `json:"content" binding:"required"`
+	GistId  string `json:"gistId" binding:"required"`
 }
