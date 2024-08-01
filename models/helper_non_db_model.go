@@ -32,7 +32,7 @@ type UserResponse struct {
 }
 
 type ForgotPasswordInput struct {
-	Email string `json:"email" binding:"required"`
+	Email string `json:"email" binding:"required,email"`
 }
 
 type ResetPasswordInput struct {
@@ -40,11 +40,16 @@ type ResetPasswordInput struct {
 	PasswordConfirm string `json:"passwordConfirm" binding:"required,min=8"`
 }
 
+type ResendVerificationEmailInput struct {
+	Email string `json:"email" binding:"required,email"`
+}
+
 type PublicUserProfileResponse struct {
 	Username     string       `json:"username,omitempty"`
 	FirstName    string       `json:"firstName,omitempty"`
 	LastName     string       `json:"lastName,omitempty"`
 	UserMetadata UserMetadata `json:"userMetadata,omitempty"`
+	Verified     bool         `json:"verified"`
 }
 
 type CreateGistRequest struct {
@@ -52,6 +57,11 @@ type CreateGistRequest struct {
 	Content string `json:"content" binding:"required"`
 	Name    string `json:"name" binding:"required"`
 	Title   string `json:"title" binding:"required"`
+}
+
+type CommentOnGistRequest struct {
+	Content string `json:"content" binding:"required"`
+	GistId  string `json:"gistId" binding:"required"`
 }
 
 type UpdateUserDetailsRequest struct {
@@ -71,3 +81,24 @@ type UpdateGistRequest struct {
 	GistId  string `json:"gistId" binding:"required"`
 }
 
+type ErrorResponse struct {
+	StatusCode int    `json:"status_code"`
+	Message    string `json:"message"`
+}
+
+type SuccessResponse struct {
+	StatusCode int    `json:"status_code"`
+	Message    string `json:"message"`
+}
+
+type GitHubClientIdResponse struct {
+	ClientId string `json:"client_id"`
+}
+
+type AccessCodeResponse struct {
+	AccessCode string `json:"access_code"`
+}
+
+type BooleanResponse struct {
+	Result bool `json:"result"`
+}

@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"gihub.com/amit/Go-Gist/controllers"	
+	"github.com/amit/Go-Gist/controllers"
 	"github.com/gin-gonic/gin"
 )
 
@@ -17,4 +17,5 @@ func (gc *GistRouteController) GistRoute(rg *gin.RouterGroup) {
 	router := rg.Group("gists")
 	router.GET("/:gistId", gc.gistController.GetGistById)
 	router.GET("/:gistId/comments", gc.gistController.GetGistComments)
+	router.GET("/:gistId/stargazers", gc.gistController.GetGistStargazers)
 }

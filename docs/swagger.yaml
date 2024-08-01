@@ -1,0 +1,1274 @@
+basePath: /api/
+definitions:
+  models.AccessCodeResponse:
+    properties:
+      access_code:
+        type: string
+    type: object
+  models.AccessCodeResponseWrapper:
+    properties:
+      data:
+        $ref: '#/definitions/models.AccessCodeResponse'
+    type: object
+  models.BooleanResponse:
+    properties:
+      result:
+        type: boolean
+    type: object
+  models.BooleanResponseWrapper:
+    properties:
+      data:
+        $ref: '#/definitions/models.BooleanResponse'
+    type: object
+  models.Comment:
+    properties:
+      commentID:
+        type: string
+      content:
+        type: string
+      createdAt:
+        type: string
+      gistID:
+        description: Foreign Key
+        type: string
+      updatedAt:
+        type: string
+      username:
+        type: string
+    type: object
+  models.CommentArrayWrapper:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/models.Comment'
+        type: array
+    type: object
+  models.CommentOnGistRequest:
+    properties:
+      content:
+        type: string
+      gistId:
+        type: string
+    required:
+    - content
+    - gistId
+    type: object
+  models.CommentWrapper:
+    properties:
+      data:
+        $ref: '#/definitions/models.Comment'
+    type: object
+  models.CreateGistRequest:
+    properties:
+      content:
+        type: string
+      name:
+        type: string
+      private:
+        type: boolean
+      title:
+        type: string
+    required:
+    - content
+    - name
+    - title
+    type: object
+  models.ErrorResponse:
+    properties:
+      message:
+        type: string
+      status_code:
+        type: integer
+    type: object
+  models.ErrorResponseWrapper:
+    properties:
+      error:
+        $ref: '#/definitions/models.ErrorResponse'
+    type: object
+  models.ForgotPasswordInput:
+    properties:
+      email:
+        type: string
+    required:
+    - email
+    type: object
+  models.Gist:
+    properties:
+      comments:
+        items:
+          $ref: '#/definitions/models.Comment'
+        type: array
+      createdAt:
+        type: string
+      gistContent:
+        $ref: '#/definitions/models.GistContent'
+      id:
+        type: string
+      name:
+        description: We are hard-coding in logic to make sure name is unique across
+          all gists of a user
+        type: string
+      private:
+        type: boolean
+      starCount:
+        type: integer
+      title:
+        type: string
+      updatedAt:
+        type: string
+      username:
+        description: Foreign Key
+        type: string
+    type: object
+  models.GistContent:
+    properties:
+      content:
+        type: string
+      id:
+        description: Foreign Key
+        type: string
+    type: object
+  models.GistWithoutComments:
+    properties:
+      createdAt:
+        type: string
+      gistContent:
+        $ref: '#/definitions/models.GistContent'
+      id:
+        type: string
+      name:
+        description: We are hard-coding in logic to make sure name is unique across
+          all gists of a user
+        type: string
+      private:
+        type: boolean
+      starCount:
+        type: integer
+      title:
+        type: string
+      updatedAt:
+        type: string
+      username:
+        type: string
+    type: object
+  models.GistWithoutCommentsArrayWrapper:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/models.GistWithoutComments'
+        type: array
+    type: object
+  models.GistWithoutCommentsWrapper:
+    properties:
+      data:
+        $ref: '#/definitions/models.GistWithoutComments'
+    type: object
+  models.GitHubClientIdResponse:
+    properties:
+      client_id:
+        type: string
+    type: object
+  models.GitHubClientIdResponseWrapper:
+    properties:
+      data:
+        $ref: '#/definitions/models.GitHubClientIdResponse'
+    type: object
+  models.PublicUserProfileResponse:
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      userMetadata:
+        $ref: '#/definitions/models.UserMetadata'
+      username:
+        type: string
+      verified:
+        type: boolean
+    type: object
+  models.PublicUserProfileResponseWrapper:
+    properties:
+      data:
+        $ref: '#/definitions/models.PublicUserProfileResponse'
+    type: object
+  models.ResendVerificationEmailInput:
+    properties:
+      email:
+        type: string
+    required:
+    - email
+    type: object
+  models.ResetPasswordInput:
+    properties:
+      password:
+        minLength: 8
+        type: string
+      passwordConfirm:
+        minLength: 8
+        type: string
+    required:
+    - password
+    - passwordConfirm
+    type: object
+  models.SignInInput:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  models.SignUpInput:
+    properties:
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      password:
+        minLength: 8
+        type: string
+      passwordConfirm:
+        type: string
+      username:
+        type: string
+    required:
+    - email
+    - firstName
+    - lastName
+    - password
+    - passwordConfirm
+    - username
+    type: object
+  models.StringArrayWrapper:
+    properties:
+      data:
+        items:
+          type: string
+        type: array
+    type: object
+  models.SuccessResponse:
+    properties:
+      message:
+        type: string
+      status_code:
+        type: integer
+    type: object
+  models.SuccessResponseWrapper:
+    properties:
+      success:
+        $ref: '#/definitions/models.SuccessResponse'
+    type: object
+  models.UUIDArrayWrapper:
+    properties:
+      data:
+        items:
+          type: string
+        type: array
+    type: object
+  models.UpdateGistRequest:
+    properties:
+      content:
+        type: string
+      gistId:
+        type: string
+      name:
+        type: string
+      private:
+        type: boolean
+      title:
+        type: string
+    required:
+    - gistId
+    type: object
+  models.UpdateUserDetailsRequest:
+    properties:
+      location:
+        type: string
+      profilePicture:
+        type: string
+      statusIcon:
+        type: string
+      tagline:
+        type: string
+      twitter:
+        type: string
+      website:
+        type: string
+    type: object
+  models.UserMetadata:
+    properties:
+      followers:
+        type: integer
+      following:
+        type: integer
+      location:
+        type: string
+      profilePicture:
+        type: string
+      starredGistsCount:
+        type: integer
+      statusIcon:
+        type: string
+      tagline:
+        type: string
+      twitter:
+        type: string
+      username:
+        description: Foreign Key
+        type: string
+      website:
+        type: string
+    type: object
+  models.UserMetadataWrapper:
+    properties:
+      data:
+        $ref: '#/definitions/models.UserMetadata'
+    type: object
+  models.UserResponse:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      gists:
+        items:
+          $ref: '#/definitions/models.Gist'
+        type: array
+      lastName:
+        type: string
+      provider:
+        type: string
+      role:
+        type: string
+      updated_at:
+        type: string
+      userMetadata:
+        $ref: '#/definitions/models.UserMetadata'
+      username:
+        type: string
+    type: object
+  models.UserResponseWrapper:
+    properties:
+      data:
+        $ref: '#/definitions/models.UserResponse'
+    type: object
+info:
+  contact: {}
+  description: The REST API for GitHub Gist Backend
+  title: GitHub Gist Backend REST API
+  version: 1.0-alpha
+paths:
+  /auth/forgotpassword:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: The Input for sending password reset code
+        in: body
+        name: ForgotPasswordInput
+        required: true
+        schema:
+          $ref: '#/definitions/models.ForgotPasswordInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessResponseWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Send reset code for password reset
+      tags:
+      - Authentication
+  /auth/github/callback:
+    get:
+      parameters:
+      - description: code received from GitHub API after user authorizes application
+        in: query
+        name: code
+        required: true
+        type: string
+      - description: new username to be used for the user
+        in: query
+        name: newUsername
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AccessCodeResponseWrapper'
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.AccessCodeResponseWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Register a new user through GitHub
+      tags:
+      - Authentication
+  /auth/github/clientid:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GitHubClientIdResponseWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Get GitHub Client ID
+      tags:
+      - Authentication
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Sign in a user
+        in: body
+        name: SignInInput
+        required: true
+        schema:
+          $ref: '#/definitions/models.SignInInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AccessCodeResponseWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Sign in a user
+      tags:
+      - Authentication
+  /auth/logout:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessResponseWrapper'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Log out a user
+      tags:
+      - Authentication
+  /auth/refresh:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AccessCodeResponseWrapper'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Refresh access token with refresh token
+      tags:
+      - Authentication
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User object that needs to be added to the system
+        in: body
+        name: SignUpInput
+        required: true
+        schema:
+          $ref: '#/definitions/models.SignUpInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.SuccessResponseWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Register a new user
+      tags:
+      - Authentication
+  /auth/resendverificationemail:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Resend verification email to the user with the given email
+        in: body
+        name: ResendVerificationEmailInput
+        required: true
+        schema:
+          $ref: '#/definitions/models.ResendVerificationEmailInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessResponseWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Resend verification email
+      tags:
+      - Authentication
+  /auth/resetpassword:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: The input required to reset the password
+        in: body
+        name: ResetPasswordInput
+        required: true
+        schema:
+          $ref: '#/definitions/models.ResetPasswordInput'
+      - description: The username of the user
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: The token required to reset the password
+        in: query
+        name: resetToken
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessResponseWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Reset password
+      tags:
+      - Authentication
+  /auth/usernameavailable/{username}:
+    get:
+      parameters:
+      - description: The username to check availability
+        in: path
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessResponseWrapper'
+      summary: Check if username is available
+      tags:
+      - Authentication
+  /auth/verifyemail:
+    get:
+      parameters:
+      - description: Username of the user to be verified
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: Verify the added user object to the database
+        in: query
+        name: verificationCode
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessResponseWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Verify users email address
+      tags:
+      - Authentication
+  /gists/{gistId}:
+    get:
+      parameters:
+      - description: The ID of the gist
+        in: path
+        name: gistId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GistWithoutCommentsWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Get the gist by gist id, DOES NOT load gist comments
+      tags:
+      - Gist Operations
+  /gists/{gistId}/comments:
+    get:
+      parameters:
+      - description: The ID of the gist
+        in: path
+        name: gistId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CommentArrayWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Get the comments of a gist
+      tags:
+      - Gist Operations
+  /gists/{gistId}/stargazers:
+    get:
+      parameters:
+      - description: The ID of the gist
+        in: path
+        name: gistId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.StringArrayWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Get the stargazers of a gist
+      tags:
+      - Gist Operations
+  /health:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Check the basic health of api
+      tags:
+      - Health
+  /users/{username}:
+    get:
+      parameters:
+      - description: The username to get
+        in: path
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.PublicUserProfileResponseWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Get the publicly visible details of a user, DOES NOT load gists
+      tags:
+      - User Operations
+  /users/{username}/followers:
+    get:
+      parameters:
+      - description: The username of the user to get the followers of
+        in: path
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.StringArrayWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Get the followers of a user
+      tags:
+      - User Operations
+  /users/{username}/following:
+    get:
+      parameters:
+      - description: The username of the user to get the following of
+        in: path
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.StringArrayWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Get the list of users a user is following
+      tags:
+      - User Operations
+  /users/{username}/follows/{otherUser}:
+    get:
+      parameters:
+      - description: The username of the follower
+        in: path
+        name: username
+        required: true
+        type: string
+      - description: The username of the user being followed
+        in: path
+        name: otherUser
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BooleanResponseWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Whether a username follows another username
+      tags:
+      - User Operations
+  /users/{username}/gistIds:
+    get:
+      parameters:
+      - description: The username to get gists for
+        in: path
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UUIDArrayWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Get the publicly visible gist Ids of a user
+      tags:
+      - User Operations
+  /users/{username}/gists:
+    get:
+      parameters:
+      - description: The username to get gists for
+        in: path
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GistWithoutCommentsArrayWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Get the publicly visible gists of a user, DOES NOT load the gist comments
+      tags:
+      - User Operations
+  /users/{username}/starredGist/{gistId}:
+    get:
+      parameters:
+      - description: The username of the user to check the starred gist of
+        in: path
+        name: username
+        required: true
+        type: string
+      - description: The ID of the gist to check if it is starred
+        in: path
+        name: gistId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BooleanResponseWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.BooleanResponseWrapper'
+      summary: Whether a user has starred a gist
+      tags:
+      - User Operations
+  /users/{username}/starredGists:
+    get:
+      parameters:
+      - description: The username of the user to get the starred gists of
+        in: path
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UUIDArrayWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Get the list of starred gists of a user
+      tags:
+      - User Operations
+  /users/comments:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: The Input for creating comment
+        in: body
+        name: CreateCommentInput
+        required: true
+        schema:
+          $ref: '#/definitions/models.CommentOnGistRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.CommentWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Create a comment on a gist
+      tags:
+      - User Operations
+  /users/details:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: The Input for updating user metadata
+        in: body
+        name: UpdateUserDetailsInput
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateUserDetailsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserMetadataWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Update user metadata
+      tags:
+      - User Operations
+  /users/follow/{userToFollow}:
+    patch:
+      parameters:
+      - description: The username of the user to follow
+        in: path
+        name: userToFollow
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessResponseWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Follow a user
+      tags:
+      - User Operations
+  /users/gists:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: The Input for updating user gist
+        in: body
+        name: UpdateGistInput
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateGistRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GistWithoutCommentsWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Update gist data
+      tags:
+      - User Operations
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: The Input for creating gist
+        in: body
+        name: CreateGistInput
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateGistRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.GistWithoutCommentsWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Create a gist
+      tags:
+      - User Operations
+  /users/gists/{gistId}/star:
+    patch:
+      parameters:
+      - description: The ID of the gist to star
+        in: path
+        name: gistId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessResponseWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Star a gist
+      tags:
+      - User Operations
+  /users/gists/{gistId}/unstar:
+    patch:
+      parameters:
+      - description: The ID of the gist to un-star
+        in: path
+        name: gistId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessResponseWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Un-star a gist
+      tags:
+      - User Operations
+  /users/me:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserResponseWrapper'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Get the current logged in user details.
+      tags:
+      - User Operations
+  /users/unfollow/{userToUnfollow}:
+    patch:
+      parameters:
+      - description: The username of the user to unfollow
+        in: path
+        name: userToUnfollow
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessResponseWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponseWrapper'
+      summary: Unfollow a user
+      tags:
+      - User Operations
+swagger: "2.0"
